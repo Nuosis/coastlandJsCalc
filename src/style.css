@@ -1,0 +1,123 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F4EFE2; 
+  color: #333; /* Dark grey color for text for good contrast */
+}
+
+#root .display {
+  display: flex; /* Use Flexbox to layout the children of this div side by side */
+  flex-direction: column;
+  flex-wrap: nowrap; /* Prevent the items from wrapping */
+  gap: 5px; /* Set a gap of 5px between each item */
+  margin-bottom: 20px; /* Bottom margin of 20px */
+  align-items: flex-start; /* Align items vertically in the center, if desired */
+}
+
+#root .group .filter {
+  display: flex; /* Use Flexbox to layout the children of this div side by side */
+  flex-direction: row;
+  flex-wrap: nowrap; /* Prevent the items from wrapping */
+  gap: 5px; /* Set a gap of 5px between each item */
+  margin: 10px 0px; /* Bottom margin of 20px */
+  align-items: flex-start; /* Align items vertically in the center, if desired */
+}
+
+#root .chitDiv {
+  display: flex; /* Use Flexbox*/
+  flex-direction: row;
+  flex-wrap: nowrap; /* Prevent the items from wrapping */
+  gap: 0px;
+  margin-bottom: 0px;
+  align-items: flex-start; /* Align items left */
+}
+
+.button {
+  background-color: #00457C; /* Dark blue color similar to the app header */
+  color: white; /* White text color for contrast */
+  padding: 10px 20px; /* Spacing around the text */
+  border: none; /* No border for a modern look */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-weight: bold; /* Make the text bold */
+  font-size: 16px; /* Reasonable font size for readability */
+  cursor: pointer; /* The cursor will be a pointer on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* A subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.button.sm {
+  background-color: #03121f; 
+  padding: 5px 15px; /* Spacing around the text */
+  border-radius: 10px; /* Slightly rounded corners */
+  font-weight: 500; /* Make the text bold */
+  font-size: 11px; /* Reasonable font size for readability */
+}
+
+.button:hover {
+  background-color: #005C99; /* A slightly lighter blue on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* A more pronounced shadow on hover */
+}
+
+.button:active {
+  background-color: #003D5C; /* Even darker blue for the active state */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Revert to subtle shadow for the active state */
+}
+
+.option {
+  background-color: #00457C; /* Dark blue color similar to the app header */
+  color: white; /* White text color for contrast */
+  font-weight: 200; /* Make the text bold */
+  font-size: 16px;
+  padding: 5px 10px; /* Spacing around the text */
+  margin: 2px 0; /* Small margin for spacing between options */
+}
+
+/* Style the select element itself to match the button */
+.select {
+  background-color: #00457C;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  min-width: 38px; 
+}
+
+.select:hover {
+  background-color: #005C99;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.select:active {
+  background-color: #003D5C;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.chitLabel {
+  border: 1px solid black; /* Black border */
+  background-color: rgba(171, 171, 171, 0.332); /* Grey background */
+  border-top-left-radius: 10px; /* Rounded top-left corner */
+  border-bottom-left-radius: 10px; /* Rounded bottom-left corner */
+  font-size: small; /* Small font size */
+  padding: 5px; /* Minimal padding */
+  display: inline-block; /* Ensures the padding and border are applied correctly */
+  margin-bottom: 2px; /* Optional: Adds a bit of space between the label and following content */
+}
+
+.chitValues {
+  border-top: 1px solid black;    /* Top border */
+  border-right: 1px solid black;  /* Right border */
+  border-bottom: 1px solid black;
+  border-left: none; 
+  background-color: rgba(171, 171, 171, 0.332); /* Grey background */
+  border-top-Right-radius: 10px; /* Rounded top-left corner */
+  border-bottom-Right-radius: 10px; /* Rounded bottom-left corner */
+  font-size: small; /* Small font size */
+  padding: 5px; /* Minimal padding */
+  display: inline-block; /* Ensures the padding and border are applied correctly */
+  margin-bottom: 2px; /* Optional: Adds a bit of space between the label and following content */
+}
