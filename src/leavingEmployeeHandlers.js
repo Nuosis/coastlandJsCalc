@@ -48,16 +48,25 @@ export function renderFilterValueInput(event) {
         filterInput.appendChild(option);
     });
     
-
-    filterDiv.appendChild(filterInput);
+    let button = document.getElementById('leavingEmployeeFilterStateButton');
+    if (!button) {
+        filterDiv.appendChild(filterInput);
+    } else {
+        filterDiv.insertBefore(filterInput, button);
+    }
 }
 
 export function setLeavingEmployeeFilterState(event) {
     // Get the selected value
     const selectedValue = event.target.value;
+    const filterElement = document.getElementById('leavingEmployeeFilterSelection');
+    const filterKey = filterElement ? filterElement.value : '';
+    console.log(filterKey)
+    const filterObject = {filterKey, selectedValue}
+
 
     // Set the selected value to state (assuming setState is available in the scope)
-    setState('leavingEmployeeFilterState', 'Update',  selectedValue);
+    setState('leavingEmployeeFilterState', 'Update',  filterObject);
 
     // Check for the button, create it if it doesn't exist
     let button = document.getElementById('leavingEmployeeFilterStateButton');
@@ -108,18 +117,21 @@ function renderFilterBy() {
         // Create and append the label element
         const label = document.createElement('label');
         label.className = 'chitLabel';
-        label.textContent = 'Filter By:';
+        label.textContent = 'Get records where:';
         filterByDiv.appendChild(label);
 
         // Filter out duplicate values
-        const uniqueValues = [...new Set(values)];
+        const uniqueValues = [...new Set(values.map(JSON.stringify))].map(JSON.parse);
 
         // Create and append the chitValues element
         const chitValues = document.createElement('div');
         chitValues.className = 'chitValues';
-        chitValues.innerHTML = uniqueValues.map((value, index) => {
-            return index < uniqueValues.length - 1 ? value + ', ' : value;
-        }).join('');
+
+        // Transform each object into a string representation
+        chitValues.innerHTML = uniqueValues.map((value) => {
+            return `${value.filterKey} is ${value.selectedValue}`;
+        }).join(' & ');
+        
         filterByDiv.appendChild(chitValues);
     }
 

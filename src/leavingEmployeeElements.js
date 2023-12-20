@@ -1,7 +1,8 @@
-import {setState, getState} from './state.js'
+import {setState} from './state.js'
 import {setLeavingEmployeeGroupState, renderFilterValueInput} from './leavingEmployeeHandlers.js'
+import {processState} from './dataProcessing.js'
 
-const state = getState()
+// const state = getState()
 
 export function leavingEmployee(data) {
     let leavingEmployeeDiv = document.getElementById('leavingEmployee');
@@ -11,9 +12,8 @@ export function leavingEmployee(data) {
         leavingEmployeeDiv = document.createElement('div');
         leavingEmployeeDiv.id = 'leavingEmployee';
         leavingEmployeeDiv.className = 'display';
-
-        const rootDiv = document.getElementById('root');
-        rootDiv.appendChild(leavingEmployeeDiv);
+        const headerDiv = document.getElementById('header');
+        headerDiv.appendChild(leavingEmployeeDiv);
 
         // Create the initial button
         const button = document.createElement('button');
@@ -111,6 +111,46 @@ export function leavingEmployee(data) {
         filterDiv.appendChild(filter);
 
         /**
+         * DISPLAY DIV
+         */
+        // Check if the group div exists, create it if not
+        let reportTypeDiv = document.getElementById('leavingEmployeeReportType');
+        if (!reportTypeDiv) {
+            reportTypeDiv = document.createElement('div');
+            reportTypeDiv.id = 'leavingEmployeeReportType';
+            reportTypeDiv.className = 'group';
+            leavingEmployeeDiv.appendChild(reportTypeDiv);
+        } 
+
+        // create the dropdown
+        const reportType = document.createElement('select');
+        reportType.id = 'leavingEmployeeReportSelection';
+        reportType.className = 'select';
+
+        // Create the default 'drop down' options
+        const reportTypeOption = document.createElement('option');
+        reportTypeOption.value = '';
+        reportTypeOption.textContent = 'Report Type';
+        reportTypeOption.disabled = true;
+        reportTypeOption.selected = true;
+        reportType.appendChild(reportTypeOption);       
+        
+        // Create an option for each key provided
+        Object.values(['accordian','pie','bar','line']).forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.className = 'option';
+            option.textContent = value;
+            reportType.appendChild(option);
+        });
+
+        reportTypeDiv.appendChild(reportType);
+
+        /**
+         * PRESENT OPTIONS DIV
+         */
+
+        /**
          * SUBMIT DIV (if not already created)
          */
         // Check and create submitDiv if it does not exist
@@ -119,18 +159,24 @@ export function leavingEmployee(data) {
             submitDiv = document.createElement('div');
             submitDiv.id = 'submit';
 
-            const rootDiv = document.getElementById('root');
+            const reportDiv = document.getElementById('report');
 
             // Create the 'Generate Report' button
             const reportButton = document.createElement('button');
             reportButton.textContent = 'Generate Report';
             reportButton.className = 'button';
-            reportButton.onclick = function() {
-                FileMaker.PerformScript('* Employee Report * JScallback', '{"path":"submitReportData"}');
-            };
+            reportButton.onclick = processState;
 
             submitDiv.appendChild(reportButton);
-            rootDiv.appendChild(submitDiv);
+            reportDiv.appendChild(submitDiv);
+        }
+
+        let chartDiv = document.getElementById('charts');
+        if (!chartDiv) {
+            const reportDiv = document.getElementById('report');
+            chartDiv = document.createElement('div');
+            chartDiv.id = 'charts';
+            reportDiv.appendChild(chartDiv);
         }
     }
 

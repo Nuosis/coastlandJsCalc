@@ -20,5 +20,9 @@
     "parcel": "^2.8.1",
     "prettier": "2.6.2"
   },
-  "widgetType": "JS"
+  "widgetType": "JS",
+  "dependencies": {
+    "chart.js": "^4.4.1",
+    "chartjs-plugin-datalabels": "^2.2.0"
+  }
 }

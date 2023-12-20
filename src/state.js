@@ -5,10 +5,10 @@ let appState = {
     leavingEmployeeData: {},
     leavingEmployeeGroupState: [],
     leavingEmployeeFilterState: [],
-    employeeActivity: {},
+    employeeActivityData: {},
     employeeActivityGroupState: [],
     employeeActivityFilterState: [],
-    employeeSummary: {},
+    employeeSummaryData: {},
     employeeSummaryGroupState: [],
     employeeSummaryFilterState: [],
 };

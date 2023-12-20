@@ -12,13 +12,13 @@ export function renderFilterValueInput(event) {
     // Get the selected value
     const valueKey = event.target.value;
 
-    const filterDiv = document.getElementById('newEmployeeFilter');
+    const filterDiv = document.getElementById('employeeSummaryFilter');
 
     // Create select element
     const filterInput = document.createElement('select');
-    filterInput.id = 'newEmployeeFilterInput';
+    filterInput.id = 'employeeSummaryFilterInput';
     filterInput.className = 'select';
-    filterInput.onchange = setNewEmployeeFilterState;
+    filterInput.onchange = setEmployeeSummaryFilterState; // Assuming this function is defined elsewhere
 
     // Create the default 'Select Value' option
     const defaultOption = document.createElement('option');
@@ -28,7 +28,7 @@ export function renderFilterValueInput(event) {
     defaultOption.selected = true;
     filterInput.appendChild(defaultOption);
 
-    const fieldData = state.newEmployeeData.response.data;
+    const fieldData = state.employeeSummaryData.response.data;
 
     // Create a set to store unique values
     const uniqueValues = new Set();
@@ -48,7 +48,7 @@ export function renderFilterValueInput(event) {
         filterInput.appendChild(option);
     });
     
-    let button = document.getElementById('newEmployeeFilterStateButton');
+    let button = document.getElementById('employeeSummaryFilterStateButton');
     if (!button) {
         filterDiv.appendChild(filterInput);
     } else {
@@ -56,27 +56,28 @@ export function renderFilterValueInput(event) {
     }
 }
 
-export function setNewEmployeeFilterState(event) {
+export function setEmployeeSummaryFilterState(event) {
     // Get the selected value
     const selectedValue = event.target.value;
-    const filterElement = document.getElementById('newEmployeeFilterSelection');
+    const filterElement = document.getElementById('employeeSummaryFilterSelection');
     const filterKey = filterElement ? filterElement.value : '';
     console.log(filterKey)
     const filterObject = {filterKey, selectedValue}
 
+
     // Set the selected value to state (assuming setState is available in the scope)
-    setState('newEmployeeFilterState', 'Update',  filterObject);
+    setState('employeeSummaryFilterState', 'Update',  filterObject);
 
     // Check for the button, create it if it doesn't exist
-    let button = document.getElementById('newEmployeeFilterStateButton');
+    let button = document.getElementById('employeeSummaryFilterStateButton');
     if (!button) {
         button = document.createElement('button');
-        button.id = 'newEmployeeFilterStateButton';
+        button.id = 'employeeSummaryFilterStateButton';
         button.textContent = 'clear selection';
         button.className = 'button sm';
-        button.onclick = clearNewEmployeeFilterState;
+        button.onclick = clearEmployeeSummaryFilterState;
 
-        const filterDiv = document.getElementById('newEmployeeFilter');
+        const filterDiv = document.getElementById('employeeSummaryFilter');
         if (filterDiv) {
             filterDiv.appendChild(button);
         }
@@ -88,17 +89,17 @@ export function setNewEmployeeFilterState(event) {
 
 function renderFilterBy() {
     const state = getState();
-    const values = state.newEmployeeFilterState;
+    const values = state.employeeSummaryFilterState;
     console.log('renderFilter values', values);
 
-    let filterByDiv = document.getElementById('newEmployeeFilterState');
+    let filterByDiv = document.getElementById('employeeSummaryFilterState');
 
     if (!filterByDiv) {
         filterByDiv = document.createElement('div');
-        filterByDiv.id = 'newEmployeeFilterState';
+        filterByDiv.id = 'employeeSummaryFilterState';
         filterByDiv.className = 'chitDiv';
 
-        const filterDiv = document.getElementById('newEmployeeFilter');
+        const filterDiv = document.getElementById('employeeSummaryFilter');
         if (filterDiv) {
             filterDiv.prepend(filterByDiv);
         } else {
@@ -135,22 +136,22 @@ function renderFilterBy() {
     }
 
     // Reset the key element
-    const selectElement = document.getElementById('newEmployeeFilterSelection');
+    const selectElement = document.getElementById('employeeSummaryFilterSelection');
     if (selectElement) {
         selectElement.value = '';
     }
     // Remove the value element
-    const filterInputElement = document.getElementById('newEmployeeFilterInput');
+    const filterInputElement = document.getElementById('employeeSummaryFilterInput');
     if (filterInputElement) {
         filterInputElement.remove();
     }
 }
 
-function clearNewEmployeeFilterState() {
-    setState('newEmployeeFilterState', 'Replace', {})
+function clearEmployeeSummaryFilterState() {
+    setState('employeeSummaryFilterState', 'Replace', {})
     renderFilterBy()
     // Remove the button element
-    const filterButtonElement = document.getElementById('newEmployeeFilterStateButton');
+    const filterButtonElement = document.getElementById('employeeSummaryFilterStateButton');
     if (filterButtonElement) {
         filterButtonElement.remove();
     }
@@ -162,26 +163,26 @@ function clearNewEmployeeFilterState() {
  * GROUP BY FUNCTIONS
  */
 
-export function setNewEmployeeGroupState(event) {
+export function setEmployeeSummaryGroupState(event) {
     // Get the selected value
     const selectedValue = event.target.value;
     console.log('eventValue', selectedValue)
 
     // Set the selected value to state (assuming setState is available in the scope)
-    setState('newEmployeeGroupState', 'Update',  selectedValue);
+    setState('employeeSummaryGroupState', 'Update',  selectedValue);
     let currentState = getState()
-    console.log('state after newEmployeeGroupState Update', currentState)
+    console.log('state after employeeSummaryGroupState Update', currentState)
 
     // Check for the button, create it if it doesn't exist
-    let button = document.getElementById('newEmployeeGroupStateButton');
+    let button = document.getElementById('employeeSummaryGroupStateButton');
     if (!button) {
         button = document.createElement('button');
-        button.id = 'newEmployeeGroupStateButton';
+        button.id = 'employeeSummaryGroupStateButton';
         button.className = 'button sm';
         button.textContent = 'Clear selection';
-        button.onclick = clearNewEmployeeGroupState;
+        button.onclick = clearEmployeeSummaryGroupState;
 
-        const groupDiv = document.getElementById('newEmployeeGroup');
+        const groupDiv = document.getElementById('employeeSummaryGroup');
         if (groupDiv) {
             groupDiv.appendChild(button);
         }
@@ -193,17 +194,17 @@ export function setNewEmployeeGroupState(event) {
 
 function renderGroupBy() {
     const state = getState();
-    const values = state.newEmployeeGroupState;
+    const values = state.employeeSummaryGroupState;
     console.log('renderGroup values', values);
 
-    let groupByDiv = document.getElementById('newEmployeeGroupState');
+    let groupByDiv = document.getElementById('employeeSummaryGroupState');
 
     if (!groupByDiv) {
         groupByDiv = document.createElement('div');
-        groupByDiv.id = 'newEmployeeGroupState';
+        groupByDiv.id = 'employeeSummaryGroupState';
         groupByDiv.className = 'chitDiv';
 
-        const groupDiv = document.getElementById('newEmployeeGroup');
+        const groupDiv = document.getElementById('employeeSummaryGroup');
         if (groupDiv) {
             groupDiv.prepend(groupByDiv);
         } else {
@@ -234,17 +235,17 @@ function renderGroupBy() {
     }
 
     // Reset the select element
-    const selectElement = document.getElementById('newEmployeeGroupSelection');
+    const selectElement = document.getElementById('employeeSummaryGroupSelection');
     if (selectElement) {
         selectElement.value = '';
     }
 }
 
-function clearNewEmployeeGroupState() {
-    setState('newEmployeeGroupState', 'Replace', {})
+function clearEmployeeSummaryGroupState() {
+    setState('employeeSummaryGroupState', 'Replace', {})
     renderGroupBy()
     // Remove the button element
-    const groupButtonElement = document.getElementById('newEmployeeGroupStateButton');
+    const groupButtonElement = document.getElementById('employeeSummaryGroupStateButton');
     if (groupButtonElement) {
         groupButtonElement.remove();
     }

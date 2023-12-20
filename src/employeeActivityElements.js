@@ -1,60 +1,60 @@
 import {setState} from './state.js'
-import {setNewEmployeeGroupState, renderFilterValueInput} from './newEmployeeHandlers.js'
+import {setEmployeeActivityGroupState, renderFilterValueInput} from './employeeActivityHandlers.js'
 import {processState} from './dataProcessing.js'
 
-//const state = getState()
+// const state = getState()
 
-export function newEmployee(data) {
-    let newEmployeeDiv = document.getElementById('newEmployee');
+export function employeeActivity(data) {
+    let employeeActivityDiv = document.getElementById('employeeActivity');
 
     // Create the div if it doesn't exist
-    if (!newEmployeeDiv) {
-        newEmployeeDiv = document.createElement('div');
-        newEmployeeDiv.id = 'newEmployee';
-        newEmployeeDiv.className = 'display';
+    if (!employeeActivityDiv) {
+        employeeActivityDiv = document.createElement('div');
+        employeeActivityDiv.id = 'employeeActivity';
+        employeeActivityDiv.className = 'display';
         const headerDiv = document.getElementById('header');
-        headerDiv.appendChild(newEmployeeDiv);
+        headerDiv.appendChild(employeeActivityDiv);
 
         // Create the initial button
         const button = document.createElement('button');
-        button.textContent = 'Get new employee data';
+        button.textContent = 'Get employee activity data';
         button.className = 'button';
         button.onclick = function() {
-            FileMaker.PerformScript('* Employee Report * JScallback', '{"path":"getNewEmployeeData"}');
+            FileMaker.PerformScript('* Employee Report * JScallback', '{"path":"getEmployeeActivityData"}');
         };
-        newEmployeeDiv.appendChild(button);
-    } else if (document.querySelector('#newEmployee .button')) {
+        employeeActivityDiv.appendChild(button);
+    } else if (document.querySelector('#employeeActivity .button')) {
         // If the button exists, clear the div
-        newEmployeeDiv.innerHTML = '';
+        employeeActivityDiv.innerHTML = '';
 
         // Create and append the H3 element
         const h3 = document.createElement('h3');
-        h3.textContent = 'New Employee';
+        h3.textContent = 'Employee Activity';
         h3.style.margin = '5px';
-        newEmployeeDiv.appendChild(h3);
+        employeeActivityDiv.appendChild(h3);
     }
 
     // Create a dropdown if data is provided
     if (data) {
-        setState('newEmployeeData', 'Replace', data);
+        setState('employeeActivityData', 'Replace', data);
 
         /**
          * GROUP DIV
          */
         // Check if the group div exists, create it if not
-        let groupDiv = document.getElementById('newEmployeeGroup');
+        let groupDiv = document.getElementById('employeeActivityGroup');
         if (!groupDiv) {
             groupDiv = document.createElement('div');
-            groupDiv.id = 'newEmployeeGroup';
+            groupDiv.id = 'employeeActivityGroup';
             groupDiv.className = 'group';
-            newEmployeeDiv.appendChild(groupDiv);
+            employeeActivityDiv.appendChild(groupDiv);
         } 
 
         // create the dropdown
         const select = document.createElement('select');
-            select.id = 'newEmployeeGroupSelection';
+            select.id = 'employeeActivityGroupSelection';
             select.className = 'select';
-            select.onchange = setNewEmployeeGroupState;
+            select.onchange = setEmployeeActivityGroupState;
 
             // Create the default 'drop down' options
             const defaultOption = document.createElement('option');
@@ -78,17 +78,17 @@ export function newEmployee(data) {
          * FILTER DIV
          */
         // Check if the group div exists, create it if not
-        let filterDiv = document.getElementById('newEmployeeFilter');
+        let filterDiv = document.getElementById('employeeActivityFilter');
         if (!filterDiv) {
             filterDiv = document.createElement('div');
-            filterDiv.id = 'newEmployeeFilter';
+            filterDiv.id = 'employeeActivityFilter';
             filterDiv.className = 'filter';
-            newEmployeeDiv.appendChild(filterDiv);
+            employeeActivityDiv.appendChild(filterDiv);
         } 
 
         // create the dropdown
         const filter = document.createElement('select');
-        filter.id = 'newEmployeeFilterSelection';
+        filter.id = 'employeeActivityFilterSelection';
         filter.className = 'select';
         filter.onchange = renderFilterValueInput;
 
@@ -114,17 +114,17 @@ export function newEmployee(data) {
          * DISPLAY DIV
          */
         // Check if the group div exists, create it if not
-        let reportTypeDiv = document.getElementById('newEmployeeReportType');
+        let reportTypeDiv = document.getElementById('employeeActivityReportType');
         if (!reportTypeDiv) {
             reportTypeDiv = document.createElement('div');
-            reportTypeDiv.id = 'newEmployeeReportType';
+            reportTypeDiv.id = 'employeeActivityReportType';
             reportTypeDiv.className = 'group';
-            newEmployeeDiv.appendChild(reportTypeDiv);
+            employeeActivityDiv.appendChild(reportTypeDiv);
         } 
 
         // create the dropdown
         const reportType = document.createElement('select');
-        reportType.id = 'newEmployeeReportSelection';
+        reportType.id = 'employeeActivityReportSelection';
         reportType.className = 'select';
 
         // Create the default 'drop down' options
@@ -145,6 +145,10 @@ export function newEmployee(data) {
         });
 
         reportTypeDiv.appendChild(reportType);
+
+        /**
+         * PRESENT OPTIONS DIV
+         */
 
         /**
          * SUBMIT DIV (if not already created)

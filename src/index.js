@@ -1,5 +1,7 @@
 import {newEmployee} from './newEmployeeElements'
 import {leavingEmployee} from './leavingEmployeeElements'
+import {employeeSummary} from './employeeSummaryElements'
+import {employeeActivity} from './employeeActivityElements'
 
 //INCLUDE ALL FUNCTIONS CALLABLE BY FILEMAKER
 window.summarizeKey = (data) => {
@@ -50,6 +52,7 @@ window.summarizeKey = (data) => {
     FileMaker.PerformScript("* Employee Report * JScallback", JSON.stringify(summary));
     return summary;
 }
+
 window.newEmployeeData = (data) => {
     // Parse the input data from fileMaker
     const obj = JSON.parse(data);
@@ -68,6 +71,24 @@ window.leavingEmployeeData = (data) => {
 
 }
 
+window.employeeActivityData = (data) => {
+    // Parse the input data from fileMaker
+    const obj = JSON.parse(data);
+    console.log(obj)
+    // Send to elements generation function
+    employeeActivity(obj)
+
+}
+
+window.employeeSummaryData = (data) => {
+    // Parse the input data from fileMaker
+    const obj = JSON.parse(data);
+    console.log(obj)
+    // Send to elements generation function
+    employeeSummary(obj)
+
+}
+
 
 //BUILD OUT INIT UI
 //|------------------new employee section------------------|
@@ -77,6 +98,8 @@ window.leavingEmployeeData = (data) => {
 //Expose function to load newEmployee Data
 newEmployee()
 leavingEmployee()
+employeeActivity()
+employeeSummary()
 
 
 

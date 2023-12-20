@@ -5,7 +5,7 @@ body {
   color: #333; /* Dark grey color for text for good contrast */
 }
 
-#root .display {
+#root {
   display: flex; /* Use Flexbox to layout the children of this div side by side */
   flex-direction: column;
   flex-wrap: nowrap; /* Prevent the items from wrapping */
@@ -14,7 +14,25 @@ body {
   align-items: flex-start; /* Align items vertically in the center, if desired */
 }
 
-#root .group .filter {
+#header {
+  display: flex; /* Use Flexbox to layout the children of this div side by side */
+  flex-direction: row;
+  flex-wrap: nowrap; /* Prevent the items from wrapping */
+  gap: 15px; /* Set a gap of 5px between each item */
+  margin-bottom: 20px; /* Bottom margin of 20px */
+  align-items: flex-start; /* Align items vertically in the center, if desired */
+}
+
+#header .display {
+  display: flex; /* Use Flexbox to layout the children of this div side by side */
+  flex-direction: column;
+  flex-wrap: nowrap; /* Prevent the items from wrapping */
+  gap: 5px; /* Set a gap of 5px between each item */
+  margin-bottom: 20px; /* Bottom margin of 20px */
+  align-items: flex-start; /* Align items vertically in the center, if desired */
+}
+
+#header .group .filter {
   display: flex; /* Use Flexbox to layout the children of this div side by side */
   flex-direction: row;
   flex-wrap: nowrap; /* Prevent the items from wrapping */
@@ -23,13 +41,23 @@ body {
   align-items: flex-start; /* Align items vertically in the center, if desired */
 }
 
-#root .chitDiv {
+#header .chitDiv {
   display: flex; /* Use Flexbox*/
   flex-direction: row;
   flex-wrap: nowrap; /* Prevent the items from wrapping */
   gap: 0px;
   margin-bottom: 0px;
   align-items: flex-start; /* Align items left */
+}
+
+#charts {
+  display: flex; /* Use Flexbox to layout the children of this div side by side */
+  flex-direction: row;
+  flex-wrap: nowrap; /* Prevent the items from wrapping */
+  gap: 15px; /* Set a gap of 5px between each item */
+  margin-bottom: 20px; /* Bottom margin of 20px */
+  align-items: flex-start; /* Align items vertically in the center, if desired */
+  max-width: 1000px;
 }
 
 .button {

@@ -1,60 +1,60 @@
 import {setState} from './state.js'
-import {setNewEmployeeGroupState, renderFilterValueInput} from './newEmployeeHandlers.js'
+import {setEmployeeSummaryGroupState, renderFilterValueInput} from './employeeSummaryHandlers.js'
 import {processState} from './dataProcessing.js'
 
-//const state = getState()
+// const state = getState()
 
-export function newEmployee(data) {
-    let newEmployeeDiv = document.getElementById('newEmployee');
+export function employeeSummary(data) {
+    let employeeSummaryDiv = document.getElementById('employeeSummary');
 
     // Create the div if it doesn't exist
-    if (!newEmployeeDiv) {
-        newEmployeeDiv = document.createElement('div');
-        newEmployeeDiv.id = 'newEmployee';
-        newEmployeeDiv.className = 'display';
+    if (!employeeSummaryDiv) {
+        employeeSummaryDiv = document.createElement('div');
+        employeeSummaryDiv.id = 'employeeSummary';
+        employeeSummaryDiv.className = 'display';
         const headerDiv = document.getElementById('header');
-        headerDiv.appendChild(newEmployeeDiv);
+        headerDiv.appendChild(employeeSummaryDiv);
 
         // Create the initial button
         const button = document.createElement('button');
-        button.textContent = 'Get new employee data';
+        button.textContent = 'Get employee summary data';
         button.className = 'button';
         button.onclick = function() {
-            FileMaker.PerformScript('* Employee Report * JScallback', '{"path":"getNewEmployeeData"}');
+            FileMaker.PerformScript('* Employee Report * JScallback', '{"path":"getEmployeeSummaryData"}');
         };
-        newEmployeeDiv.appendChild(button);
-    } else if (document.querySelector('#newEmployee .button')) {
+        employeeSummaryDiv.appendChild(button);
+    } else if (document.querySelector('#employeeSummary .button')) {
         // If the button exists, clear the div
-        newEmployeeDiv.innerHTML = '';
+        employeeSummaryDiv.innerHTML = '';
 
         // Create and append the H3 element
         const h3 = document.createElement('h3');
-        h3.textContent = 'New Employee';
+        h3.textContent = 'Active Employee Summary';
         h3.style.margin = '5px';
-        newEmployeeDiv.appendChild(h3);
+        employeeSummaryDiv.appendChild(h3);
     }
 
     // Create a dropdown if data is provided
     if (data) {
-        setState('newEmployeeData', 'Replace', data);
+        setState('employeeSummaryData', 'Replace', data);
 
         /**
          * GROUP DIV
          */
         // Check if the group div exists, create it if not
-        let groupDiv = document.getElementById('newEmployeeGroup');
+        let groupDiv = document.getElementById('employeeSummaryGroup');
         if (!groupDiv) {
             groupDiv = document.createElement('div');
-            groupDiv.id = 'newEmployeeGroup';
+            groupDiv.id = 'employeeSummaryGroup';
             groupDiv.className = 'group';
-            newEmployeeDiv.appendChild(groupDiv);
+            employeeSummaryDiv.appendChild(groupDiv);
         } 
 
         // create the dropdown
         const select = document.createElement('select');
-            select.id = 'newEmployeeGroupSelection';
+            select.id = 'employeeSummaryGroupSelection';
             select.className = 'select';
-            select.onchange = setNewEmployeeGroupState;
+            select.onchange = setEmployeeSummaryGroupState;
 
             // Create the default 'drop down' options
             const defaultOption = document.createElement('option');
@@ -78,17 +78,17 @@ export function newEmployee(data) {
          * FILTER DIV
          */
         // Check if the group div exists, create it if not
-        let filterDiv = document.getElementById('newEmployeeFilter');
+        let filterDiv = document.getElementById('employeeSummaryFilter');
         if (!filterDiv) {
             filterDiv = document.createElement('div');
-            filterDiv.id = 'newEmployeeFilter';
+            filterDiv.id = 'employeeSummaryFilter';
             filterDiv.className = 'filter';
-            newEmployeeDiv.appendChild(filterDiv);
+            employeeSummaryDiv.appendChild(filterDiv);
         } 
 
         // create the dropdown
         const filter = document.createElement('select');
-        filter.id = 'newEmployeeFilterSelection';
+        filter.id = 'employeeSummaryFilterSelection';
         filter.className = 'select';
         filter.onchange = renderFilterValueInput;
 
@@ -114,17 +114,17 @@ export function newEmployee(data) {
          * DISPLAY DIV
          */
         // Check if the group div exists, create it if not
-        let reportTypeDiv = document.getElementById('newEmployeeReportType');
+        let reportTypeDiv = document.getElementById('employeeSummaryReportType');
         if (!reportTypeDiv) {
             reportTypeDiv = document.createElement('div');
-            reportTypeDiv.id = 'newEmployeeReportType';
+            reportTypeDiv.id = 'employeeSummaryReportType';
             reportTypeDiv.className = 'group';
-            newEmployeeDiv.appendChild(reportTypeDiv);
+            employeeSummaryDiv.appendChild(reportTypeDiv);
         } 
 
         // create the dropdown
         const reportType = document.createElement('select');
-        reportType.id = 'newEmployeeReportSelection';
+        reportType.id = 'employeeSummaryReportSelection';
         reportType.className = 'select';
 
         // Create the default 'drop down' options
@@ -145,6 +145,10 @@ export function newEmployee(data) {
         });
 
         reportTypeDiv.appendChild(reportType);
+
+        /**
+         * PRESENT OPTIONS DIV
+         */
 
         /**
          * SUBMIT DIV (if not already created)
