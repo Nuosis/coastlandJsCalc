@@ -147,7 +147,7 @@ function renderFilterBy() {
 }
 
 function clearNewEmployeeFilterState() {
-    setState('newEmployeeFilterState', 'Replace', {})
+    setState('newEmployeeFilterState', 'Replace', [])
     renderFilterBy()
     // Remove the button element
     const filterButtonElement = document.getElementById('newEmployeeFilterStateButton');
@@ -187,14 +187,14 @@ export function setNewEmployeeGroupState(event) {
         }
     }
 
-    // Call renderGroupBy (assuming it's defined)
+    // Call renderGroupBy
     renderGroupBy();
 }
 
 function renderGroupBy() {
     const state = getState();
     const values = state.newEmployeeGroupState;
-    console.log('renderGroup values', values);
+    console.log('renderGroupBy values', values);
 
     let groupByDiv = document.getElementById('newEmployeeGroupState');
 
@@ -241,7 +241,7 @@ function renderGroupBy() {
 }
 
 function clearNewEmployeeGroupState() {
-    setState('newEmployeeGroupState', 'Replace', {})
+    setState('newEmployeeGroupState', 'Replace', [])
     renderGroupBy()
     // Remove the button element
     const groupButtonElement = document.getElementById('newEmployeeGroupStateButton');

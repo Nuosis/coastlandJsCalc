@@ -1,5 +1,7 @@
 import Chart from 'chart.js/auto';
-import 'chartjs-plugin-datalabels';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.register(ChartDataLabels);
+
 
 const chartTypes=['bar','pie','line']
 
@@ -59,6 +61,7 @@ function prepData(data, title, type) {
     // Dataset configuration
     if (type === 'bar' || type === 'pie') {
         dataSet = {
+            label: 'chart data',
             labels: labels,
             datasets: [{
                 data: dataPoints,
@@ -69,6 +72,7 @@ function prepData(data, title, type) {
         dataSet = {
             labels: labels,
             datasets: [{
+                label: 'line chart data',
                 data: dataPoints,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',

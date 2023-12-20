@@ -148,7 +148,7 @@ function renderFilterBy() {
 }
 
 function clearEmployeeSummaryFilterState() {
-    setState('employeeSummaryFilterState', 'Replace', {})
+    setState('employeeSummaryFilterState', 'Replace', [])
     renderFilterBy()
     // Remove the button element
     const filterButtonElement = document.getElementById('employeeSummaryFilterStateButton');
@@ -242,7 +242,7 @@ function renderGroupBy() {
 }
 
 function clearEmployeeSummaryGroupState() {
-    setState('employeeSummaryGroupState', 'Replace', {})
+    setState('employeeSummaryGroupState', 'Replace', [])
     renderGroupBy()
     // Remove the button element
     const groupButtonElement = document.getElementById('employeeSummaryGroupStateButton');

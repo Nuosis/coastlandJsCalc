@@ -148,7 +148,7 @@ function renderFilterBy() {
 }
 
 function clearLeavingEmployeeFilterState() {
-    setState('leavingEmployeeFilterState', 'Replace', {})
+    setState('leavingEmployeeFilterState', 'Replace', [])
     renderFilterBy()
     // Remove the button element
     const filterButtonElement = document.getElementById('leavingEmployeeFilterStateButton');
@@ -242,7 +242,7 @@ function renderGroupBy() {
 }
 
 function clearLeavingEmployeeGroupState() {
-    setState('leavingEmployeeGroupState', 'Replace', {})
+    setState('leavingEmployeeGroupState', 'Replace', [])
     renderGroupBy()
     // Remove the button element
     const groupButtonElement = document.getElementById('leavingEmployeeGroupStateButton');

@@ -1,4 +1,5 @@
 let appState = {
+    spinnerDivId: '',
     newEmployeeData: {},
     newEmployeeGroupState: [],
     newEmployeeFilterState: [],
@@ -34,23 +35,19 @@ export function setState(stateVar, stateMethod, value) {
     // Handle different stateMethods
     switch (useMethod) {
         case "Update":
-            // If the state variable is an array, push the value
             if (Array.isArray(appState[stateVar])) {
                 appState[stateVar].push(value);
-            } else if (typeof appState[stateVar] === 'object' && appState[stateVar] !== null) {
-                // If it's an object, spread the new value into it
+            } else if (typeof appState[stateVar] === 'object' && appState[stateVar] !== null && !Array.isArray(value) && typeof value !== 'string') {
+                // Ensure value is an object before using spread syntax
                 appState[stateVar] = {...appState[stateVar], ...value};
             } else {
-                // For primitive types, just update the value
                 appState[stateVar] = value;
             }
             break;
         case "Replace":
-            // Replace the entire state variable with the new value
             appState[stateVar] = value;
             break;
-        default:
-            console.error(`Invalid state method '${stateMethod}'`);
+        // ...
     }
     console.log('setState finished', appState)
 }

@@ -1,6 +1,10 @@
-import {setState} from './state.js'
+import {getState, setState} from './state.js'
 import {setEmployeeActivityGroupState, renderFilterValueInput} from './employeeActivityHandlers.js'
 import {processState} from './dataProcessing.js'
+import {clearSpinner} from './loadAnimations.js'
+import {performFilemakerScript} from './filemaker.js'
+
+const state = getState()
 
 // const state = getState()
 
@@ -19,9 +23,7 @@ export function employeeActivity(data) {
         const button = document.createElement('button');
         button.textContent = 'Get employee activity data';
         button.className = 'button';
-        button.onclick = function() {
-            FileMaker.PerformScript('* Employee Report * JScallback', '{"path":"getEmployeeActivityData"}');
-        };
+        button.onclick = () => performFilemakerScript('employeeActivity','getEmployeeActivityData');
         employeeActivityDiv.appendChild(button);
     } else if (document.querySelector('#employeeActivity .button')) {
         // If the button exists, clear the div
@@ -36,6 +38,8 @@ export function employeeActivity(data) {
 
     // Create a dropdown if data is provided
     if (data) {
+        clearSpinner(state.spinnerDivId)
+        setState('spinnerDivId', 'Replace', '');
         setState('employeeActivityData', 'Replace', data);
 
         /**
