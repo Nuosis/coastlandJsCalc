@@ -1,6 +1,6 @@
 import {getState, setState} from './state.js'
 import {setEmployeeSummaryGroupState, renderFilterValueInput} from './employeeSummaryHandlers.js'
-import {processState} from './dataProcessing.js'
+import {processState, transformData} from './dataProcessing.js'
 import {clearSpinner} from './loadAnimations.js'
 import {performFilemakerScript} from './filemaker.js'
 
@@ -38,9 +38,10 @@ export function employeeSummary(data) {
 
     // Create a dropdown if data is provided
     if (data) {
+        const transformedData = transformData(data)
         clearSpinner(state.spinnerDivId)
         setState('spinnerDivId', 'Replace', '');
-        setState('employeeSummaryData', 'Replace', data);
+        setState('employeeSummaryData', 'Replace', transformedData);
 
         /**
          * GROUP DIV

@@ -1,5 +1,7 @@
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import {jsPDF} from 'jspdf'
+
 Chart.register(ChartDataLabels);
 
 const chartTypes=['bar','pie','line']
@@ -173,12 +175,17 @@ function prepData(data, title, type) {
 }
 
 function addPrintButton(chartDiv, chartCanvas) {
-    const printButton = document.createElement('button');
+    let printButton = document.getElementById('button'+chartCanvas.id)
+    if(!printButton){
+    let printButton = document.createElement('button');
     printButton.innerText = 'Print Chart';
+    printButton.className = 'button m';
+    printButton.id = 'button'+chartCanvas.id;
     printButton.onclick = function () {
-        printChart(chartCanvas.id);
+        getChartBase64(chartCanvas.id);
     };
     chartDiv.appendChild(printButton);
+}
 }
 
 function printChart(canvasId) {
@@ -217,10 +224,21 @@ function printChart(canvasId) {
     pdf.save(`${canvasId}.pdf`);
 }
 
+function getChartBase64(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) {
+        console.error('Canvas not found:', canvasId);
+        return null;
+    }
+    // Convert the canvas to a data URL (base64 encoded PNG image)
+    const base64Image = canvas.toDataURL('image/png');
+    FileMaker.PerformScript('* Employee Report * JScallback', JSON.stringify({"path":"base64", image:base64Image}));
+}
+
 // Function to render a chart
 export function renderChart(data, type, title, canvasId) {
-    console.log('render chats called')
-    console.log('chart props:', data, type, title, canvasId)
+    console.log('render charts called')
+    //console.log('chart props:', data, type, title, canvasId)
 
     // check against chartTypes enabled
     if (!chartTypes.includes(type)) {
@@ -231,11 +249,14 @@ export function renderChart(data, type, title, canvasId) {
 
     // Prep Canvas
     let canvas = document.getElementById(canvasId);
+    let chartDiv = document.getElementById('charts');
     if (!canvas) {
         canvas = document.createElement('canvas');
         canvas.id = canvasId;
-        canvas.width = 800;
+        canvas.width = 500;
         canvas.className = 'canvas-' + type; // This will create a class like 'canvas-bar' or 'canvas-line'
+        canvas.style.maxWidth = '500px'; 
+        canvas.style.maxHeight = '500px'; 
         let chartDiv = document.getElementById('charts');
         if (chartDiv) {
             chartDiv.appendChild(canvas);
@@ -244,6 +265,7 @@ export function renderChart(data, type, title, canvasId) {
             return;
         }
     }
+
 
     addPrintButton(chartDiv, canvas);
 
@@ -255,8 +277,8 @@ export function renderChart(data, type, title, canvasId) {
 
     // prep data for chart type
     const {dataSet, options} = prepData(data, title, type)
-    console.log('chart dataSet:', dataSet)
-    console.log('chart options:', options)
+    //console.log('chart dataSet:', dataSet)
+    //console.log('chart options:', options)
 
     // Now create the chart from prepped data
     if (!dataSet || !options) {

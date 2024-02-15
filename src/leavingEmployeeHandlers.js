@@ -28,14 +28,14 @@ export function renderFilterValueInput(event) {
     defaultOption.selected = true;
     filterInput.appendChild(defaultOption);
 
-    const fieldData = state.leavingEmployeeData.response.data;
+    const fieldData = state.leavingEmployeeData;
 
     // Create a set to store unique values
     const uniqueValues = new Set();
     
     fieldData.forEach(record => {
-        if (record.fieldData[valueKey]) {
-            uniqueValues.add(record.fieldData[valueKey]);
+        if (record[valueKey]) {
+            uniqueValues.add(record[valueKey]);
         }
     });
     

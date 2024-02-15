@@ -1,6 +1,6 @@
 import {getState, setState} from './state.js'
 import {setLeavingEmployeeGroupState, renderFilterValueInput} from './leavingEmployeeHandlers.js'
-import {processState} from './dataProcessing.js'
+import {processState, transformData} from './dataProcessing.js'
 import {clearSpinner} from './loadAnimations.js'
 import {performFilemakerScript} from './filemaker.js'
 
@@ -38,9 +38,10 @@ export function leavingEmployee(data) {
 
     // Create a dropdown if data is provided
     if (data) {
+        const transformedData = transformData(data)
         clearSpinner(state.spinnerDivId)
         setState('spinnerDivId', 'Replace', '');
-        setState('leavingEmployeeData', 'Replace', data);
+        setState('leavingEmployeeData', 'Replace', transformedData);
 
         /**
          * GROUP DIV

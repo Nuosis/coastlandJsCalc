@@ -101,6 +101,8 @@ leavingEmployee()
 employeeActivity()
 employeeSummary()
 
+console.log('version 1.0.2')
+
 
 
 

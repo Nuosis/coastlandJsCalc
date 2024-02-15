@@ -91,6 +91,16 @@ body {
   font-size: 11px; /* Reasonable font size for readability */
 }
 
+.button.m {
+  background-color: #00457C; /* Dark blue color similar to the app header */
+  color: white;
+  padding: 5px 15px; /* Spacing around the text */
+  border-radius: 10px; /* Slightly rounded corners */
+  cursor: pointer;
+  font-weight: 500; /* Make the text bold */
+  font-size: 12px; /* Reasonable font size for readability */
+}
+
 .button:hover {
   background-color: #005C99; /* A slightly lighter blue on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* A more pronounced shadow on hover */

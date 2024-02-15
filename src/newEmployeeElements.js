@@ -1,12 +1,13 @@
 import {getState, setState} from './state.js'
 import {setNewEmployeeGroupState, renderFilterValueInput} from './newEmployeeHandlers.js'
-import {processState} from './dataProcessing.js'
+import {processState, transformData} from './dataProcessing.js'
 import {clearSpinner} from './loadAnimations.js'
 import {performFilemakerScript} from './filemaker.js'
 
 const state = getState()
 
 export function newEmployee(data) {
+    console.log('newEmployee called')
     let newEmployeeDiv = document.getElementById('newEmployee');
 
     // Create the div if it doesn't exist
@@ -33,12 +34,14 @@ export function newEmployee(data) {
         h3.style.margin = '5px';
         newEmployeeDiv.appendChild(h3);
     }
+    
 
     // Create a dropdown if data is provided
     if (data) {
+        const transformedData = transformData(data)
         clearSpinner(state.spinnerDivId)
         setState('spinnerDivId', 'Replace', '');
-        setState('newEmployeeData', 'Replace', data);
+        setState('newEmployeeData', 'Replace', transformedData);
 
         /**
          * GROUP DIV
