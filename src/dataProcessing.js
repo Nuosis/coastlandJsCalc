@@ -28,15 +28,13 @@ function groupByKey(stateData, stateGroupBy) {
 
 
 function filterByKeyValue(stateData, filterState) {
+    if (!filterState || filterState.length === 0) {
+        return stateData;
+    }
     const dataItems = stateData.response.data.map(item => item.fieldData);
 
     // Filter function based on the filterState criteria
     const applyFilter = (item) => {
-        // If filterState is empty or not provided, return true for all items
-        if (!filterState || filterState.length === 0) {
-            return true;
-        }
-
         // Check if the item satisfies all conditions in the filterState
         return filterState.every(filter => item[filter.key] === filter.value);
     };
@@ -69,7 +67,7 @@ export function processState() {
 
             // Check if the data object is not empty
             if (Object.keys(state[dataKey]).length !== 0) {
-                console.log('State Object Exsists')
+                console.log(`${state[dataKey]} Exists`)
                 // Apply filterByKeyValue and groupByKey functions
                 const filteredData = filterByKeyValue(state[dataKey], state[filterStateKey]);
                 console.log('filteredData ', filteredData)
@@ -92,6 +90,10 @@ export function processState() {
         if (Object.prototype.hasOwnProperty.call(newState, key)) {
             // Get the chart type from reportSelection (e.g., 'pie')
             const chartType = newState[key].reportSelection;
+            if (!chartType || length.chartType == [0]){
+                // no chart type was indicated. exit out
+                return newState
+            }
     
             // Create a new object with all properties from newState[key] except reportSelection
             const { reportSelection, ...chartData } = newState[key];
