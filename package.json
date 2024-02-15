@@ -23,6 +23,7 @@
   "widgetType": "JS",
   "dependencies": {
     "chart.js": "^4.4.1",
-    "chartjs-plugin-datalabels": "^2.2.0"
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "jspdf": "^2.5.1"
   }
 }

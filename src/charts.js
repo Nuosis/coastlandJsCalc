@@ -2,7 +2,6 @@ import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 Chart.register(ChartDataLabels);
 
-
 const chartTypes=['bar','pie','line']
 
 function camelCaseToTitleCase(camelCase) {
@@ -21,7 +20,6 @@ function camelCaseToTitleCase(camelCase) {
 
     return newText.replace(/^\w/, c => c.toUpperCase()); // Capitalize the first letter
 }
-
 
 function prepData(data, title, type) {
     const chartColours = [
@@ -174,6 +172,50 @@ function prepData(data, title, type) {
     return obj;
 }
 
+function addPrintButton(chartDiv, chartCanvas) {
+    const printButton = document.createElement('button');
+    printButton.innerText = 'Print Chart';
+    printButton.onclick = function () {
+        printChart(chartCanvas.id);
+    };
+    chartDiv.appendChild(printButton);
+}
+
+function printChart(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) {
+        console.error('Canvas not found:', canvasId);
+        return;
+    }
+
+    // Create a jsPDF instance in portrait orientation
+    // 'p' stands for portrait, 'mm' is the unit, and 'a4' is the format
+    const pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
+    });
+
+    // Calculate the width and height to fit the chart within the A4 size
+    // A4 dimensions in mm are approximately 210mm x 297mm
+    // Adjusting the chart size to fit within the PDF, maintaining aspect ratio
+    let imgWidth = 190; // width in mm; 210mm full width minus margins
+    let imgHeight = canvas.height * imgWidth / canvas.width;
+
+    // Ensure the image height doesn't exceed the PDF page size
+    const pageHeight = 280; // slightly less than 297mm to account for margins
+    if (imgHeight > pageHeight) {
+        imgHeight = pageHeight;
+        imgWidth = imgHeight * canvas.width / canvas.height;
+    }
+
+    // Convert the canvas to a data URL and add it to the PDF
+    const imgData = canvas.toDataURL('image/png');
+    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight); // 10mm margin from the left and top edges
+
+    // Save the PDF
+    pdf.save(`${canvasId}.pdf`);
+}
 
 // Function to render a chart
 export function renderChart(data, type, title, canvasId) {
@@ -192,6 +234,7 @@ export function renderChart(data, type, title, canvasId) {
     if (!canvas) {
         canvas = document.createElement('canvas');
         canvas.id = canvasId;
+        canvas.width = 800;
         canvas.className = 'canvas-' + type; // This will create a class like 'canvas-bar' or 'canvas-line'
         let chartDiv = document.getElementById('charts');
         if (chartDiv) {
@@ -201,6 +244,8 @@ export function renderChart(data, type, title, canvasId) {
             return;
         }
     }
+
+    addPrintButton(chartDiv, canvas);
 
     // Clear previous chart if it exists
     if (canvas.chartInstance) {
